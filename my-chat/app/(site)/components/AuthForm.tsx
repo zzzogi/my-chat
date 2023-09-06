@@ -156,13 +156,16 @@ const AuthForm = () => {
               id={variant === "REGISTER" ? "new-password" : "password"}
               label="Password"
               type={isPasswordVisible ? "text" : "password"}
-              {...register("password", {
-                onChange: (e: any) => {
-                  const { score } = zxcvbn(e.target.value);
-                  setPasswordStrength(score);
-                  setIsTypingPassword(e.target.value.length > 0);
-                },
-              })}
+              {...register(
+                variant === "REGISTER" ? "new-password" : "password",
+                {
+                  onChange: (e: any) => {
+                    const { score } = zxcvbn(e.target.value);
+                    setPasswordStrength(score);
+                    setIsTypingPassword(e.target.value.length > 0);
+                  },
+                }
+              )}
             />
             <button
               className="absolute bottom-0 right-0 top-8 flex items-center px-4 text-gray-600"
