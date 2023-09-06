@@ -15,7 +15,7 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   label,
-  id,
+  id = "off",
   register,
   required,
   errors,
