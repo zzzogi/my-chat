@@ -53,13 +53,13 @@ const AuthForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    if (passwordStrength < 3) {
-      toast.error("Password is too weak!");
-      setIsLoading(false);
-      return;
-    }
 
     if (variant === "REGISTER") {
+      if (passwordStrength < 3) {
+        toast.error("Password is too weak!");
+        setIsLoading(false);
+        return;
+      }
       axios
         .post("/api/register", data)
         .then(() =>
@@ -74,6 +74,7 @@ const AuthForm = () => {
           }
 
           if (callback?.ok) {
+            toast.success("Account created successfully!");
             router.push("/conversations");
           }
         })
@@ -92,6 +93,7 @@ const AuthForm = () => {
           }
 
           if (callback?.ok && !callback?.error) {
+            toast.success("Logged in successfully!");
             router.push("/conversations");
           }
         })
