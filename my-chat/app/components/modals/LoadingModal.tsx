@@ -24,6 +24,7 @@ const LoadingModal = () => {
               bg-gray-100 
               bg-opacity-50 
               transition-opacity
+              dark:bg-zinc-800
             "
           />
         </Transition.Child>

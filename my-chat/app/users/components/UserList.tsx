@@ -22,6 +22,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
         overflow-y-auto 
         border-r 
         border-gray-200
+        dark:border-zinc-800
         block w-full left-0
       "
     >
@@ -33,6 +34,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
               font-bold 
               text-neutral-800 
               py-4
+              dark:text-neutral-100
             "
           >
             People

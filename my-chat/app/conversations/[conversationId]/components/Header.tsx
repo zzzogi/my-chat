@@ -43,6 +43,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
       <div
         className="
         bg-white 
+        dark:bg-zinc-900
         w-full 
         flex 
         border-b-[1px] 
@@ -63,6 +64,8 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
             block 
             text-sky-500 
             hover:text-sky-600 
+            dark:text-sky-400
+            dark:hover:text-sky-500
             transition 
             cursor-pointer
           "
@@ -75,8 +78,11 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
             <Avatar user={otherUser} />
           )}
           <div className="flex flex-col">
-            <div>{conversation.name || otherUser.name}</div>
-            <div className="text-sm font-light text-neutral-500">
+            <div className="flex">
+              <div>{conversation.name || otherUser.name}</div>
+              {/* <div>{conversation}</div> */}
+            </div>
+            <div className="text-sm font-light text-neutral-500 dark:text-neutral-400">
               {statusText}
             </div>
           </div>
@@ -88,6 +94,8 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
           text-sky-500
           cursor-pointer
           hover:text-sky-600
+          dark:text-sky-400
+          dark:hover:text-sky-500
           transition
         "
         />

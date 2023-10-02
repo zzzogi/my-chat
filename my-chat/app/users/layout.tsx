@@ -10,7 +10,7 @@ export default async function UsersLayout({
   const users = await getUsers();
   return (
     <Sidebar>
-      <div className="h-full">
+      <div className="h-full bg-white dark:bg-zinc-800">
         <UserList items={users} />
         {children}
       </div>

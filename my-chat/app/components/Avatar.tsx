@@ -31,7 +31,7 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
       >
         <Image
           fill
-          src={user?.image || "/images/placeholder.jpg"}
+          src={user?.profileImage || "/images/placeholder.jpg"}
           alt="Avatar"
         />
       </div>
@@ -42,8 +42,10 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
             block 
             rounded-full 
             bg-green-500 
+            dark:bg-green-400
             ring-2 
             ring-white 
+            dark:ring-black
             top-0 
             right-0
             h-2 

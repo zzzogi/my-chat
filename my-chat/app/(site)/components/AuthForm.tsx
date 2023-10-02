@@ -3,16 +3,16 @@
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 
 import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
-import { toast } from "react-hot-toast";
-import AuthSocialButton from "./AuthSocialButton";
-import zxcvbn from "zxcvbn";
 import clsx from "clsx";
+import { toast } from "react-hot-toast";
+import zxcvbn from "zxcvbn";
+import AuthSocialButton from "./AuthSocialButton";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -122,6 +122,7 @@ const AuthForm = () => {
       <div
         className="
         bg-white
+        dark:bg-zinc-700
           px-4
           py-8
           shadow
@@ -170,10 +171,11 @@ const AuthForm = () => {
               )}
             />
             <button
-              className="absolute bottom-0 right-0 top-8 flex items-center px-4 text-gray-600"
+              className="absolute bottom-0 right-0 top-8 flex items-center px-4 text-gray-600 dark:text-gray-400"
               onClick={() => {
                 setIsPasswordVisible(!isPasswordVisible);
               }}
+              type="button"
             >
               {isPasswordVisible ? (
                 <svg
@@ -305,10 +307,10 @@ const AuthForm = () => {
                 items-center
               "
             >
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-300 dark:border-zinc-500" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-2 text-gray-500">
+              <span className="bg-white dark:bg-zinc-700 px-2 text-gray-500 dark:text-gray-400">
                 Or continue with
               </span>
             </div>
@@ -334,6 +336,7 @@ const AuthForm = () => {
             mt-6 
             px-2 
             text-gray-500
+            dark:text-gray-400
           "
         >
           <div>

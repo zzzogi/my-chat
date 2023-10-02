@@ -32,6 +32,7 @@ const Input: React.FC<InputProps> = ({
           font-medium 
           leading-6 
           text-gray-900
+          dark:text-gray-100
         "
       >
         {label}
@@ -57,13 +58,18 @@ const Input: React.FC<InputProps> = ({
             ring-1 
             ring-inset 
             ring-gray-300 
+            dark:ring-gray-700
             placeholder:text-gray-400 
+            dark:placeholder:text-gray-700
+            dark:bg-neutral-800
+          dark:text-white
             focus:ring-2 
             focus:ring-inset 
             focus:ring-sky-600 
+            dark:focus:ring-sky-500
             sm:text-sm 
             sm:leading-6`,
-            errors[id] && "focus:ring-rose-500",
+            errors[id] && "focus:ring-rose-500 dark:focus:ring-rose-400",
             disabled && "opacity-50 cursor-default"
           )}
         />

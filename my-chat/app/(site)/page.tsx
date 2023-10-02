@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ThemeToggle } from "../components/ThemeToggle";
 import AuthForm from "./components/AuthForm";
 
 export default function Home() {
@@ -13,8 +14,10 @@ export default function Home() {
       sm:px-6 
       lg:px-8 
       bg-gray-100
+      dark:bg-zinc-600
     "
     >
+      <ThemeToggle />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Image
           src="/images/logo.png"
@@ -31,6 +34,7 @@ export default function Home() {
           font-bold
           tracking-tight
           text-gray-900
+          dark:text-gray-100
         "
         >
           Sign in to your account

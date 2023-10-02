@@ -30,6 +30,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
               bg-gray-500 
               bg-opacity-75 
               transition-opacity
+              dark:bg-zinc-800
+              dark:bg-opacity-75
             "
           />
         </Transition.Child>
@@ -73,6 +75,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                   sm:w-full 
                   sm:max-w-lg 
                   sm:p-6
+                  dark:bg-zinc-800
+                  dark:text-gray-100
                 "
               >
                 <div
@@ -98,10 +102,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                       focus:ring-2 
                       focus:ring-indigo-500 
                       focus:ring-offset-2
+                      dark:bg-zinc-600
+                      dark:text-gray-100
+                      dark:hover:text-gray-200
+                      dark:focus:ring-zinc-500
+                      dark:focus:ring-offset-zinc-800
                     "
                     onClick={onClose}
                   >
-                    <span className="sr-only">Close</span>
+                    <span className="sr-only dark:text-gray-100">Close</span>
                     <IoClose className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
