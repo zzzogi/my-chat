@@ -156,7 +156,7 @@ const AuthForm = () => {
               register={register}
               errors={errors}
               required
-              id={variant === "REGISTER" ? "new-password" : "password"}
+              id={"password"}
               label="Password"
               type={isPasswordVisible ? "text" : "password"}
               {...register(

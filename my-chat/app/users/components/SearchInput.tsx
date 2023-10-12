@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
-  label?: string;
   placeholder?: string;
   id: string;
   type?: string;
@@ -14,33 +13,17 @@ interface InputProps {
   disabled?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({
-  label,
+const SearchInput: React.FC<InputProps> = ({
   placeholder,
   id = "off",
   register,
   required,
   errors,
-  type = "text",
+  type = "search",
   disabled,
 }) => {
   return (
     <div>
-      {label && (
-        <label
-          htmlFor={id}
-          className="
-          block 
-          text-sm 
-          font-medium 
-          leading-6 
-          text-gray-900
-          dark:text-gray-100
-        "
-        >
-          {label}
-        </label>
-      )}
       <div className="mt-2">
         <input
           id={id}
@@ -56,17 +39,15 @@ const Input: React.FC<InputProps> = ({
             w-full 
             rounded-md 
             border-0 
-            py-1.5
-            pl-3 
             text-gray-900 
             shadow-sm 
             ring-1 
             ring-inset 
             ring-gray-300 
-            dark:ring-gray-700
+            dark:ring-gray-500
             placeholder:text-gray-400 
-            dark:placeholder:text-gray-700
-            dark:bg-neutral-800
+            dark:placeholder:text-gray-600
+            dark:bg-zinc-800
           dark:text-white
             focus:ring-2 
             focus:ring-inset 
@@ -83,4 +64,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default SearchInput;

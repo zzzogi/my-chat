@@ -14,13 +14,24 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+  // const handleClick = useCallback(() => {
+  //   setIsLoading(true);
+
+  //   axios
+  //     .post("/api/conversations", { userId: data.id })
+  //     .then((data) => {
+  //       router.push(`/conversations/${data.data.id}`);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }, [data, router]);
+
   const handleClick = useCallback(() => {
     setIsLoading(true);
 
     axios
-      .post("/api/conversations", { userId: data.id })
+      .get(`/api/users/profile/${data.id}`)
       .then((data) => {
-        router.push(`/conversations/${data.data.id}`);
+        router.push(`/users/profile/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [data, router]);
@@ -44,6 +55,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
           cursor-pointer
           dark:bg-zinc-600
           dark:hover:bg-zinc-700
+          mb-2
         "
       >
         <Avatar user={data} />

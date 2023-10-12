@@ -1,14 +1,39 @@
 "use client";
 
 import { User } from "@prisma/client";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
 
 import UserBox from "./UserBox";
+import SearchInput from "./SearchInput";
+import useDisplayUser from "@/app/hooks/useDisplayUser";
 
-interface UserListProps {
-  items: User[];
-}
+const UserList: React.FC = () => {
+  const { members, add } = useDisplayUser();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: "",
+    },
+  });
 
-const UserList: React.FC<UserListProps> = ({ items }) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setValue("name", "", { shouldValidate: true });
+    axios
+      .get(`/api/users/search`, {
+        params: {
+          name: data.name,
+        },
+      })
+      .then((res) => {
+        add(res.data);
+      });
+  };
+
   return (
     <aside
       className="
@@ -40,9 +65,32 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
             People
           </div>
         </div>
-        {items.map((item) => (
-          <UserBox key={item.id} data={item} />
-        ))}
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-2">
+          <SearchInput
+            placeholder="Search"
+            id="name"
+            errors={errors}
+            required={false}
+            register={register}
+          />
+        </form>
+        {members.length ? (
+          members.map((item) => <UserBox key={item.id} data={item} />)
+        ) : (
+          <div
+            className="
+              text-sm
+              text-center
+              font-bold 
+              italic
+              text-gray-500 
+              py-4
+              dark:text-gray-400
+            "
+          >
+            Try searching for someone
+          </div>
+        )}
       </div>
     </aside>
   );
