@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { User } from "@prisma/client";
-import { CldUploadButton } from "next-cloudinary";
+import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 
 import Input from "../inputs/Input";
 import Modal from "../modals/Modal";
@@ -29,6 +29,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const {
+    getValues,
     register,
     handleSubmit,
     setValue,
@@ -39,13 +40,26 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       name: currentUser?.name,
       profileImage: currentUser?.profileImage,
       quote: currentUser?.quote,
+      images: currentUser?.images,
     },
   });
 
   const profileImage = watch("profileImage");
+  const highlightPhotos = watch("images");
 
-  const handleUpload = (result: any) => {
+  const handleUploadProfileImage = (result: any) => {
     setValue("profileImage", result.info.secure_url, {
+      shouldValidate: true,
+    });
+  };
+
+  const handleUploadHighlightPhotos = (result: any) => {
+    const currentImages = getValues("images") || [];
+    const newImageUrl = result.info.secure_url;
+
+    const updatedImages = [...currentImages, newImageUrl];
+
+    setValue("images", updatedImages, {
       shouldValidate: true,
     });
   };
@@ -142,15 +156,101 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     }
                     alt="Avatar"
                   />
-                  <CldUploadButton
-                    options={{ maxFiles: 1 }}
-                    onUpload={handleUpload}
+                  <CldUploadWidget
                     uploadPreset="zsnsmvgz"
+                    onUpload={handleUploadProfileImage}
+                    options={{
+                      cropping: true,
+                      sources: ["local"],
+                      maxFiles: 1,
+                      maxFileSize: 2000000,
+                      clientAllowedFormats: ["images", "png", "jpeg", "jpg"],
+                    }}
                   >
-                    <Button disabled={isLoading} secondary type="button">
-                      Change
-                    </Button>
-                  </CldUploadButton>
+                    {({ open }) => {
+                      function handleOnClick() {
+                        open();
+                      }
+                      return (
+                        <Button
+                          disabled={isLoading}
+                          secondary
+                          type="button"
+                          onClick={handleOnClick}
+                        >
+                          Change
+                        </Button>
+                      );
+                    }}
+                  </CldUploadWidget>
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="photo"
+                  className="
+                    block 
+                    text-sm 
+                    font-medium 
+                    leading-6 
+                    text-gray-900
+                    dark:text-gray-100
+                  "
+                >
+                  Highlight photos
+                </label>
+                <div className="mt-2 flex items-center gap-x-3">
+                  {highlightPhotos?.map((photo: string, index: number) => (
+                    <Image
+                      key={index}
+                      width="48"
+                      height="48"
+                      className="object-cover"
+                      src={photo}
+                      alt={`Highlight photo ${index}`}
+                    />
+                  ))}
+                  <CldUploadWidget
+                    uploadPreset="zsnsmvgz"
+                    onUpload={handleUploadHighlightPhotos}
+                    options={{
+                      multiple: true,
+                      sources: ["local"],
+                      maxFiles: 6,
+                      maxFileSize: 2000000,
+                      clientAllowedFormats: ["images", "png", "jpeg", "jpg"],
+                    }}
+                  >
+                    {({ open }) => {
+                      function handleOnClick() {
+                        open();
+                      }
+                      return (
+                        <Button
+                          disabled={isLoading}
+                          secondary
+                          type="button"
+                          onClick={handleOnClick}
+                        >
+                          <div className="w-6 h-6 flex items-center justify-center">
+                            <svg
+                              className="w-4 h-4 text-gray-400"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                              />
+                            </svg>
+                          </div>
+                        </Button>
+                      );
+                    }}
+                  </CldUploadWidget>
                 </div>
               </div>
             </div>

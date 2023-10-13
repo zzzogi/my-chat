@@ -1,4 +1,4 @@
-const EmptyState = () => {
+const EmptyState = ({ type = "" }: { type?: string }) => {
   return (
     <div
       className="
@@ -21,7 +21,9 @@ const EmptyState = () => {
           dark:text-gray-100
         "
         >
-          Select a chat or start a new conversation
+          {type === "users"
+            ? "Search for a user to start a conversation"
+            : "Select a chat or start a new conversation"}
         </h3>
       </div>
     </div>

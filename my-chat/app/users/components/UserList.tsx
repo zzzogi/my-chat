@@ -51,7 +51,8 @@ const UserList: React.FC = () => {
         overflow-y-auto 
         border-r 
         border-gray-200
-        dark:border-zinc-500
+        dark:border-gray-700
+        dark:bg-zinc-800
         block w-full left-0
       "
     >

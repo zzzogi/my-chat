@@ -30,7 +30,8 @@ function formatJoinDate(date: Date | undefined) {
 const Profile: React.FC<ProfileProps> = ({ user }) => {
   const router = useRouter();
   const { members } = useActiveList();
-  const [isOpenAvatar, setIsOpenAvatar] = useState(false);
+  const [isOpenImage, setIsOpenImage] = useState(false);
+  const [imgSource, setImgSource] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const isActive = members.indexOf(user?.email!) !== -1;
 
@@ -45,17 +46,25 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       .finally(() => setIsLoading(false));
   }, [user, router]);
 
-  const handleClickAvatar = useCallback(() => {
-    setIsOpenAvatar(!isOpenAvatar);
-  }, [isOpenAvatar]);
+  const handleClickImage = useCallback(
+    (source: string) => {
+      setImgSource(source);
+      setIsOpenImage(!isOpenImage);
+    },
+    [isOpenImage]
+  );
+
+  const handleCloseImage = useCallback(() => {
+    setIsOpenImage(!isOpenImage);
+  }, [isOpenImage]);
 
   return (
-    <div className="w-full h-full z-10 bg-zinc-800">
-      <div className="flex flex-item flex-col items-center gap-4 pt-10">
+    <div className="w-full h-full z-10 dark:bg-zinc-800 bg-white">
+      <div className="flex flex-item flex-col items-center gap-4 pt-10 dark:bg-zinc-800 bg-white">
         {isLoading && <LoadingModal />}
-        <Modal isOpen={isOpenAvatar} onClose={handleClickAvatar}>
+        <Modal isOpen={isOpenImage} onClose={handleCloseImage}>
           <Image
-            src={user?.profileImage || "/images/placeholder.jpg"}
+            src={imgSource}
             alt="Avatar"
             width={500}
             height={500}
@@ -76,7 +85,11 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
         >
           <Image
             fill
-            onClick={handleClickAvatar}
+            onClick={
+              user?.profileImage
+                ? () => handleClickImage(user?.profileImage!)
+                : () => {}
+            }
             className="object-cover cursor-pointer"
             src={user?.profileImage || "/images/placeholder.jpg"}
             alt="Avatar"
@@ -110,6 +123,28 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
         <Button onClick={handleClick}>
           {user?.name ? `Chat with ${user.name.split(" ")[0]} now` : "Chat now"}
         </Button>
+
+        {user?.images.length ? (
+          <p className="text-lg font-bold self-start ml-4">
+            {user?.name}&#x27;s highlight photos:{" "}
+          </p>
+        ) : null}
+
+        <div className="grid grid-cols-3 gap-4 items-center p-4">
+          {user?.images
+            ? user?.images.map((image) => (
+                <Image
+                  onClick={() => handleClickImage(image || "")}
+                  key={image}
+                  src={image}
+                  alt={`Highlight image ${image}`}
+                  width={500}
+                  height={500}
+                  className="object-cover cursor-pointer"
+                />
+              ))
+            : null}
+        </div>
       </div>
     </div>
   );
