@@ -4,6 +4,9 @@ import { create } from "zustand";
 interface DisplayUserStore {
   members: User[];
   add: (user: User[]) => void;
+  isLoading: boolean;
+  gettingUser: () => void;
+  gettingUserDone: () => void;
 }
 
 const useDisplayUser = create<DisplayUserStore>((set) => ({
@@ -11,6 +14,15 @@ const useDisplayUser = create<DisplayUserStore>((set) => ({
   add: (user) =>
     set(() => ({
       members: [...user],
+    })),
+  isLoading: false,
+  gettingUser: () =>
+    set(() => ({
+      isLoading: true,
+    })),
+  gettingUserDone: () =>
+    set(() => ({
+      isLoading: false,
     })),
 }));
 

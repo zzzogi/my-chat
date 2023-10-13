@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
     const body = await request.json();
-    const { name, image, quote } = body;
+    const { name, profileImage, quote } = body;
 
     if (!currentUser?.id) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
         id: currentUser.id,
       },
       data: {
-        profileImage: image,
+        profileImage: profileImage,
         name: name,
         quote: quote,
       },

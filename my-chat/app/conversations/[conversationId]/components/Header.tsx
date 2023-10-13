@@ -47,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         w-full 
         flex 
         border-b-[1px] 
+        dark:border-zinc-500
         sm:px-4 
         py-3 
         px-4 

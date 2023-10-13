@@ -7,9 +7,11 @@ import axios from "axios";
 import UserBox from "./UserBox";
 import SearchInput from "./SearchInput";
 import useDisplayUser from "@/app/hooks/useDisplayUser";
+import Spinning from "./Spinning";
 
 const UserList: React.FC = () => {
-  const { members, add } = useDisplayUser();
+  const { members, add, gettingUser, gettingUserDone, isLoading } =
+    useDisplayUser();
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ const UserList: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    gettingUser();
     setValue("name", "", { shouldValidate: true });
     axios
       .get(`/api/users/search`, {
@@ -30,6 +33,7 @@ const UserList: React.FC = () => {
         },
       })
       .then((res) => {
+        gettingUserDone();
         add(res.data);
       });
   };
@@ -47,7 +51,7 @@ const UserList: React.FC = () => {
         overflow-y-auto 
         border-r 
         border-gray-200
-        dark:border-zinc-800
+        dark:border-zinc-500
         block w-full left-0
       "
     >
@@ -74,8 +78,10 @@ const UserList: React.FC = () => {
             register={register}
           />
         </form>
-        {members.length ? (
+        {members.length && !isLoading ? (
           members.map((item) => <UserBox key={item.id} data={item} />)
+        ) : isLoading ? (
+          <Spinning />
         ) : (
           <div
             className="

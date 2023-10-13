@@ -22,6 +22,9 @@ export async function GET(req: NextApiRequest) {
           startsWith: query.toString(),
           mode: "insensitive",
         },
+        NOT: {
+          id: currentUser.id,
+        },
       },
     });
 

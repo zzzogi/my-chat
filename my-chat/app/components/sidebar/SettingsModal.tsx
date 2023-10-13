@@ -28,8 +28,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(currentUser, "&TEST_CURRENT_USER");
-
   const {
     register,
     handleSubmit,
@@ -39,15 +37,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   } = useForm<FieldValues>({
     defaultValues: {
       name: currentUser?.name,
-      image: currentUser?.profileImage,
+      profileImage: currentUser?.profileImage,
       quote: currentUser?.quote,
     },
   });
 
-  const image = watch("image");
+  const profileImage = watch("profileImage");
 
   const handleUpload = (result: any) => {
-    setValue("image", result.info.secure_url, {
+    setValue("profileImage", result.info.secure_url, {
       shouldValidate: true,
     });
   };
@@ -136,9 +134,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                   <Image
                     width="48"
                     height="48"
-                    className="rounded-full"
+                    className={profileImage ? "object-cover" : "rounded-full"}
                     src={
-                      image ||
+                      profileImage ||
                       currentUser?.profileImage ||
                       "/images/placeholder.jpg"
                     }
@@ -147,7 +145,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                   <CldUploadButton
                     options={{ maxFiles: 1 }}
                     onUpload={handleUpload}
-                    uploadPreset="pgc9ehd5"
+                    uploadPreset="zsnsmvgz"
                   >
                     <Button disabled={isLoading} secondary type="button">
                       Change

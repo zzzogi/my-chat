@@ -81,7 +81,9 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         rounded-lg
         transition
         cursor-pointer
+        dark:bg-zinc-800
         dark:hover:bg-zinc-700
+        mb-2
         `,
         selected
           ? "bg-neutral-100 dark:bg-zinc-600"

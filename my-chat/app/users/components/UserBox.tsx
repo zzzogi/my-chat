@@ -14,17 +14,6 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  // const handleClick = useCallback(() => {
-  //   setIsLoading(true);
-
-  //   axios
-  //     .post("/api/conversations", { userId: data.id })
-  //     .then((data) => {
-  //       router.push(`/conversations/${data.data.id}`);
-  //     })
-  //     .finally(() => setIsLoading(false));
-  // }, [data, router]);
-
   const handleClick = useCallback(() => {
     setIsLoading(true);
 
@@ -53,7 +42,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
           rounded-lg
           transition
           cursor-pointer
-          dark:bg-zinc-600
+          dark:bg-zinc-800
           dark:hover:bg-zinc-700
           mb-2
         "

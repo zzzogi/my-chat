@@ -44,6 +44,7 @@ const Form = () => {
         bg-white 
         dark:bg-zinc-900
         border-t 
+        dark:border-zinc-500
         flex 
         items-center 
         gap-2 
