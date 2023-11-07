@@ -9,10 +9,14 @@ import { User } from "@prisma/client";
 
 interface DesktopSidebarProps {
   currentUser: User;
+  lng: string;
 }
 
-const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
-  const routes = useRoutes();
+const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
+  currentUser,
+  lng,
+}) => {
+  const routes = useRoutes(lng);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,6 +25,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
         currentUser={currentUser}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
+        lng={lng}
       />
       <div
         className="

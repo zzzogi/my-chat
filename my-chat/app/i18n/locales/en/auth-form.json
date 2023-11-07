@@ -1,0 +1,17 @@
+{
+  "weak-password": "Password is too weak!",
+  "invalid-credentials": "Invalid credentials!",
+  "account-created": "Account created successfully!",
+  "something-wrong": "Something went wrong!",
+  "logged-in": "Logged in successfully!",
+  "login-name": "Login name",
+  "email-address": "Email address",
+  "password": "Password",
+  "login": "Login",
+  "sign-in": "Sign in",
+  "register": "Register",
+  "continue": "Or continue with",
+  "new-account": "New to My Chat?",
+  "already-have-account": "Already have an account?",
+  "create-account": "Create an account"
+}

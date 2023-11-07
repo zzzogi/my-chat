@@ -1,9 +1,10 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import clsx from "clsx";
 
-export const ThemeSelect = () => {
+export const ThemeSelect = ({ lng }: { lng: string }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
@@ -32,7 +33,13 @@ export const ThemeSelect = () => {
           aria-haspopup="true"
           onClick={handleToggleMenu}
         >
-          {theme === "dark" ? "Dark" : "Light"}
+          {theme === "dark"
+            ? lng === "en"
+              ? "Dark"
+              : "Tối"
+            : lng === "en"
+            ? "Light"
+            : "Sáng"}
           <svg
             className="-mr-1 h-5 w-5 text-gray-400 dark:text-gray-100"
             viewBox="0 0 20 20"
@@ -72,7 +79,7 @@ export const ThemeSelect = () => {
               setOpen(false);
             }}
           >
-            Dark
+            {lng === "en" ? "Dark" : "Tối"}
           </a>
           <a
             href="#"
@@ -84,7 +91,7 @@ export const ThemeSelect = () => {
               setOpen(false);
             }}
           >
-            Light
+            {lng === "en" ? "Light" : "Sáng"}
           </a>
         </div>
       </div>

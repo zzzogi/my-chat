@@ -1,4 +1,17 @@
-const EmptyState = ({ type = "" }: { type?: string }) => {
+"use client";
+
+import { useState, useEffect } from "react";
+import { useTranslation } from "@/app/i18n";
+
+const EmptyState = ({ type = "", lng }: { type?: string; lng: string }) => {
+  const [translation, setTranslation] = useState<any>();
+
+  useEffect(() => {
+    useTranslation(lng, "empty-state").then((t) => {
+      setTranslation(t);
+    });
+  }, [lng]);
+
   return (
     <div
       className="
@@ -22,8 +35,8 @@ const EmptyState = ({ type = "" }: { type?: string }) => {
         "
         >
           {type === "users"
-            ? "Search for a user to start a conversation"
-            : "Select a chat or start a new conversation"}
+            ? translation?.t("search-user") || ""
+            : translation?.t("select-conversation") || ""}
         </h3>
       </div>
     </div>

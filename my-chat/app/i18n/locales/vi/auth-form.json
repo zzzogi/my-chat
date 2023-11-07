@@ -1,0 +1,17 @@
+{
+  "weak-password": "Mật khẩu quá yếu!",
+  "invalid-credentials": "Thông tin không hợp lệ!",
+  "account-created": "Tài khoản được tạo thành công!",
+  "something-wrong": "Đã xảy ra lỗi!",
+  "logged-in": "Đăng nhập thành công!",
+  "login-name": "Tên đăng nhập",
+  "email-address": "Địa chỉ email",
+  "password": "Mật khẩu",
+  "login": "Đăng nhập",
+  "sign-in": "Đăng nhập",
+  "register": "Đăng ký",
+  "continue": "Hoặc tiếp tục với",
+  "new-account": "Mới tham gia My Chat?",
+  "already-have-account": "Bạn đã có tài khoản?",
+  "create-account": "Tạo một tài khoản"
+}

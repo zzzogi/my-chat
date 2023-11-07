@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 
 import useConversation from "./useConversation";
 
-const useRoutes = () => {
+const useRoutes = (lng: string) => {
   const pathname = usePathname();
   const { conversationId } = useConversation();
 
@@ -14,21 +14,21 @@ const useRoutes = () => {
     () => [
       {
         label: "Chat",
-        href: "/conversations",
+        href: `/${lng}/conversations`,
         icon: HiChat,
-        active: pathname === "/conversations" || !!conversationId,
+        active: pathname === `/${lng}/conversations` || !!conversationId,
       },
       {
         label: "Users",
-        href: "/users",
+        href: `/${lng}/users`,
         icon: HiUsers,
-        active: pathname === "/users",
+        active: pathname === `/${lng}/users`,
       },
       {
         label: "Logout",
         href: "#",
         icon: HiArrowLeftOnRectangle,
-        onClick: () => signOut(),
+        onClick: () => signOut({ callbackUrl: `/${lng}` }),
       },
     ],
     [pathname, conversationId]

@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { User } from "@prisma/client";
@@ -13,20 +13,30 @@ import Button from "../Button";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { ThemeSelect } from "../ThemeSelect";
+import { useTranslation } from "@/app/i18n";
 
 interface SettingsModalProps {
   isOpen?: boolean;
   onClose: () => void;
   currentUser: User;
+  lng: string;
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,
   onClose,
   currentUser = null,
+  lng,
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [translation, setTranslation] = useState<any>();
+
+  useEffect(() => {
+    useTranslation(lng, "setting-modal").then((t) => {
+      setTranslation(t);
+    });
+  }, [lng]);
 
   const {
     getValues,
@@ -73,7 +83,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         router.refresh();
         onClose();
       })
-      .catch(() => toast.error("Something went wrong!"))
+      .catch(() => toast.error(translation?.t("something-wrong") || ""))
       .finally(() => setIsLoading(false));
   };
 
@@ -91,10 +101,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 dark:text-gray-100
               "
             >
-              Profile
+              {translation?.t("profile") || ""}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
-              Edit your public information.
+              {translation?.t("edit-your-info") || ""}
             </p>
 
             <div className="mt-10 flex flex-col gap-y-2">
@@ -109,15 +119,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
               >
-                Choose theme
+                {translation?.t("choose-theme") || ""}
               </label>
-              <ThemeSelect />
+              <ThemeSelect lng={lng} />
             </div>
 
             <div className="mt-10 flex flex-col gap-y-8">
               <Input
                 disabled={isLoading}
-                label="Name"
+                label={translation?.t("name") || ""}
                 id="name"
                 errors={errors}
                 required
@@ -125,7 +135,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               />
               <Input
                 disabled={isLoading}
-                label="Quote"
+                label={translation?.t("quote") || ""}
                 id="quote"
                 errors={errors}
                 register={register}
@@ -142,7 +152,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
                 >
-                  Photo
+                  {translation?.t("photo") || ""}
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
                   <Image
@@ -178,7 +188,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                           type="button"
                           onClick={handleOnClick}
                         >
-                          Change
+                          {translation?.t("change-photo") || ""}
                         </Button>
                       );
                     }}
@@ -197,7 +207,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
                 >
-                  Highlight photos
+                  {translation?.t("highlight-photos") || ""}
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
                   {highlightPhotos?.map((photo: string, index: number) => (
@@ -267,10 +277,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           "
         >
           <Button disabled={isLoading} secondary onClick={onClose}>
-            Cancel
+            {translation?.t("cancel") || ""}
           </Button>
           <Button disabled={isLoading} type="submit">
-            Save
+            {translation?.t("save") || ""}
           </Button>
         </div>
       </form>
