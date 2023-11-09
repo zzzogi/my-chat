@@ -7,7 +7,7 @@ acceptLanguage.languages(languages);
 
 export const config = {
   // matcher: "/:lng*",
-  matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 
 const cookieName = "i18next";
@@ -21,12 +21,10 @@ export function middleware(req: any) {
   if (!lng) lng = fallbackLng;
 
   if (req.nextUrl.pathname === "/") {
-    console.log("redirect to /:lng", lng);
     return NextResponse.redirect(new URL(`/${lng}`, req.url));
   }
 
   if (req.headers.has("referer")) {
-    console.log("referer", req.headers.get("referer"));
     const refererUrl = new URL(req.headers.get("referer"));
     const lngInReferer = languages.find((l) =>
       refererUrl.pathname.startsWith(`/${l}`)

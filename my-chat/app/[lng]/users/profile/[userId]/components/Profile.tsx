@@ -30,7 +30,7 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
     axios
       .post("/api/conversations", { userId: user?.id })
       .then((data) => {
-        router.push(`/conversations/${data.data.id}`);
+        router.push(`/${lng}/conversations/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [user, router]);
@@ -124,7 +124,13 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
           {formatJoinDate(user?.createdAt)}
         </p>
         <Button onClick={handleClick}>
-          {user?.name ? `Chat with ${user.name.split(" ")[0]} now` : "Chat now"}
+          {user?.name
+            ? lng === "en"
+              ? `Chat with ${user?.name}`
+              : `Nhắn tin với ${user?.name}`
+            : lng === "en"
+            ? "Chat now"
+            : "Nhắn tin"}
         </Button>
 
         {user?.images.length ? (
@@ -136,7 +142,7 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
         ) : null}
 
         <div className="grid grid-cols-3 gap-4 items-center p-4">
-          {user?.images ? (
+          {user?.images.length ? (
             user?.images.map((image) => (
               <Image
                 onClick={() => handleClickImage(image || "")}
@@ -149,13 +155,12 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
               />
             ))
           ) : (
-            <p className="text-lg font-bold self-start ml-4">
+            // center the text
+            <div className="col-span-full text-center mt-4 text-gray-600 italic">
               {lng === "en"
-                ? `${user?.name} has no highlight photos yet.`
-                : `
-                ${user?.name} chưa có ảnh nổi bật nào.
-              `}
-            </p>
+                ? `${user?.name} has no highlight photos.`
+                : `${user?.name} chưa có ảnh nổi bật.`}
+            </div>
           )}
         </div>
       </div>

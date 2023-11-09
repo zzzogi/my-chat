@@ -121,7 +121,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   };
 
   const handleChangeLanguage = () => {
-    router.push(pathname.replace(`/${lng}`, `/${changeLanguage}`));
+    router.push(
+      pathname?.replace(`/${lng}`, `/${changeLanguage}`) || `/${changeLanguage}`
+    );
   };
 
   return (

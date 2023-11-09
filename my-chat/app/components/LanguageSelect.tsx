@@ -30,7 +30,7 @@ export const LanguageSelect = ({ lng, onSubmit }: LanguageSelectProps) => {
       <div>
         <button
           type="button"
-          className="inline-flex justify-between gap-x-1.5 w-28 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-zinc-800 dark:ring-zinc-700 dark:text-gray-100 dark:ring-opacity-10 dark:shadow-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex justify-between gap-x-1.5 w-32 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-zinc-800 dark:ring-zinc-700 dark:text-gray-100 dark:ring-opacity-10 dark:shadow-zinc-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"

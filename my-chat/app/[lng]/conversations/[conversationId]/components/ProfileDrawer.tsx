@@ -6,6 +6,7 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 import useOtherUser from "@/app/hooks/useOtherUser";
 import useActiveList from "@/app/hooks/useActiveList";
@@ -30,6 +31,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   data,
   lng,
 }) => {
+  const router = useRouter();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [translation, setTranslation] = useState<any>();
   const otherUser = useOtherUser(data);
@@ -64,6 +66,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
       ? "Offline"
       : "Ngoại tuyến";
   }, [data, isActive]);
+
+  const handleClickUserProfile = () => {
+    router.push(`/${lng}/users/profile/${otherUser.id}`);
+  };
 
   return (
     <>
@@ -132,9 +138,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                           <div className="flex flex-row gap-10 mt-2">
                             <div className="flex gap-10 my-8">
                               <div
-                                onClick={() => {
-                                  console.log("nice");
-                                }}
+                                onClick={handleClickUserProfile}
                                 className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
                               >
                                 <div className="w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center dark:bg-neutral-800">
