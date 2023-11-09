@@ -14,6 +14,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { ThemeSelect } from "../ThemeSelect";
 import { useTranslation } from "@/app/i18n";
+import ConfirmDeleteModal from "./ConfimDelete";
 
 interface SettingsModalProps {
   isOpen?: boolean;
@@ -31,6 +32,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [translation, setTranslation] = useState<any>();
+  const [isOpenImage, setIsOpenImage] = useState(false);
+  const [imgSource, setImgSource] = useState<string>("");
+  const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
+  const [deletingPhoto, setDeletingPhoto] = useState<string>("");
 
   useEffect(() => {
     useTranslation(lng, "setting-modal").then((t) => {
@@ -87,8 +92,42 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       .finally(() => setIsLoading(false));
   };
 
+  const handleRemoveHighlightPhoto = () => {
+    const currentImages = getValues("images") || [];
+    const updatedImages = currentImages.filter(
+      (image: string) => image !== deletingPhoto
+    );
+    setValue("images", updatedImages, {
+      shouldValidate: true,
+    });
+    setIsOpenConfirmDelete(false);
+  };
+
+  const handleCloseImage = () => {
+    setIsOpenImage(!isOpenImage);
+  };
+
+  const handleOpenConfirmDelete = () => {
+    setIsOpenConfirmDelete(!isOpenConfirmDelete);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpenImage} onClose={handleCloseImage}>
+        <Image
+          src={imgSource}
+          alt="Avatar"
+          width={500}
+          height={500}
+          className="object-cover"
+        />
+      </Modal>
+      <ConfirmDeleteModal
+        onSubmit={handleRemoveHighlightPhoto}
+        isOpen={isOpenConfirmDelete}
+        onClose={handleOpenConfirmDelete}
+        lng={lng}
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12 dark:border-gray-100/10">
@@ -158,13 +197,21 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                   <Image
                     width="48"
                     height="48"
-                    className={profileImage ? "object-cover" : "rounded-full"}
+                    className={
+                      profileImage
+                        ? "object-cover cursor-pointer"
+                        : "rounded-full cursor-pointer"
+                    }
                     src={
                       profileImage ||
                       currentUser?.profileImage ||
                       "/images/placeholder.jpg"
                     }
                     alt="Avatar"
+                    onClick={() => {
+                      setImgSource(profileImage || currentUser?.profileImage!);
+                      setIsOpenImage(true);
+                    }}
                   />
                   <CldUploadWidget
                     uploadPreset="zsnsmvgz"
@@ -211,14 +258,43 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
                   {highlightPhotos?.map((photo: string, index: number) => (
-                    <Image
-                      key={index}
-                      width="48"
-                      height="48"
-                      className="object-cover"
-                      src={photo}
-                      alt={`Highlight photo ${index}`}
-                    />
+                    <div className="relative" key={index}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDeletingPhoto(photo);
+                          setIsOpenConfirmDelete(true);
+                        }}
+                        className="absolute -top-2 -right-2 rounded-full bg-white dark:bg-black w-4 h-4"
+                      >
+                        <svg
+                          className="w-4 h-4 text-gray-400"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M18 6L6 18M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+
+                      <Image
+                        key={index}
+                        width="48"
+                        height="48"
+                        className="object-cover cursor-pointer"
+                        src={photo}
+                        alt={`Highlight photo ${index}`}
+                        onClick={() => {
+                          setImgSource(photo);
+                          setIsOpenImage(true);
+                        }}
+                      />
+                    </div>
                   ))}
                   <CldUploadWidget
                     uploadPreset="zsnsmvgz"

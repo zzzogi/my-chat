@@ -1,6 +1,8 @@
 {
   "delete-conversation": "Xoá cuộc trò chuyện",
+  "make-changes": "Xoá ảnh nổi bật",
   "are-you-sure": "Ban có chắc chắn muốn xoá cuộc trò chuyện này không? Tất cả các tin nhắn trong cuộc trò chuyện này sẽ bị xoá và không thể khôi phục lại được.",
+  "are-you-sure-info": "Bạn có muốn xoá ảnh nổi bật này không?",
   "somthing-wrong": "Có lỗi xảy ra!",
   "delete": "Xoá",
   "cancel": "Huỷ bỏ"

@@ -16,18 +16,6 @@ interface ProfileProps {
   lng: string;
 }
 
-function formatJoinDate(date: Date | undefined) {
-  if (!(date instanceof Date)) {
-    return "Joined awhile ago";
-  }
-
-  const day = String(date.getUTCDate()).padStart(2, "0");
-  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
-  const year = date.getUTCFullYear();
-
-  return `Joined since ${day}/${month}/${year}`;
-}
-
 const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
   const router = useRouter();
   const { members } = useActiveList();
@@ -54,6 +42,20 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
     },
     [isOpenImage]
   );
+
+  const formatJoinDate = useCallback((date: Date | undefined) => {
+    if (!(date instanceof Date)) {
+      return lng === "en" ? "Joined since" : "Tham gia từ";
+    }
+
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const year = date.getUTCFullYear();
+
+    return `${
+      lng === "en" ? "Joined since" : "Tham gia từ"
+    } ${day}/${month}/${year}`;
+  }, []);
 
   const handleCloseImage = useCallback(() => {
     setIsOpenImage(!isOpenImage);
@@ -127,24 +129,34 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
 
         {user?.images.length ? (
           <p className="text-lg font-bold self-start ml-4">
-            {user?.name}&#x27;s highlight photos:{" "}
+            {lng === "en"
+              ? `${user?.name}&#x27;s highlight photos:`
+              : `Ảnh nổi bật của ${user?.name}:`}
           </p>
         ) : null}
 
         <div className="grid grid-cols-3 gap-4 items-center p-4">
-          {user?.images
-            ? user?.images.map((image) => (
-                <Image
-                  onClick={() => handleClickImage(image || "")}
-                  key={image}
-                  src={image}
-                  alt={`Highlight image ${image}`}
-                  width={500}
-                  height={500}
-                  className="object-cover cursor-pointer"
-                />
-              ))
-            : null}
+          {user?.images ? (
+            user?.images.map((image) => (
+              <Image
+                onClick={() => handleClickImage(image || "")}
+                key={image}
+                src={image}
+                alt={`Highlight image ${image}`}
+                width={500}
+                height={500}
+                className="object-cover cursor-pointer"
+              />
+            ))
+          ) : (
+            <p className="text-lg font-bold self-start ml-4">
+              {lng === "en"
+                ? `${user?.name} has no highlight photos yet.`
+                : `
+                ${user?.name} chưa có ảnh nổi bật nào.
+              `}
+            </p>
+          )}
         </div>
       </div>
     </div>
