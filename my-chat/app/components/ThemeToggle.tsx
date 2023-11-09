@@ -20,7 +20,7 @@ export const ThemeToggle = () => {
       <a
         className={clsx(
           `flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500 ${
-            theme === "dark" ? "hidden" : "block"
+            theme === "light" ? "block" : "hidden"
           }`
         )}
         href="#"

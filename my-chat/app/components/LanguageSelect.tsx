@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
 import clsx from "clsx";
 
-export const ThemeSelect = ({ lng }: { lng: string }) => {
+interface LanguageSelectProps {
+  lng: string;
+  onSubmit: (ln: string) => void;
+}
+
+export const LanguageSelect = ({ lng, onSubmit }: LanguageSelectProps) => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -33,13 +36,7 @@ export const ThemeSelect = ({ lng }: { lng: string }) => {
           aria-haspopup="true"
           onClick={handleToggleMenu}
         >
-          {theme === "dark"
-            ? lng === "en"
-              ? "Dark"
-              : "Tối"
-            : lng === "en"
-            ? "Light"
-            : "Sáng"}
+          {lng === "en" ? "English" : "Tiếng Việt"}
           <svg
             className="-mr-1 h-5 w-5 text-gray-400 dark:text-gray-100"
             viewBox="0 0 20 20"
@@ -75,12 +72,12 @@ export const ThemeSelect = ({ lng }: { lng: string }) => {
             role="menuitem"
             id="menu-item-0"
             onClick={() => {
-              if (theme === "dark") return;
-              setTheme(theme === "dark" ? "light" : "dark");
+              if (lng === "en") return;
+              onSubmit("en");
               setOpen(false);
             }}
           >
-            {lng === "en" ? "Dark" : "Tối"}
+            {lng === "en" ? "English" : "Tiếng Anh"}
           </a>
           <a
             href="#"
@@ -88,12 +85,12 @@ export const ThemeSelect = ({ lng }: { lng: string }) => {
             role="menuitem"
             id="menu-item-1"
             onClick={() => {
-              if (theme === "light") return;
-              setTheme("light");
+              if (lng === "vi") return;
+              onSubmit("vi");
               setOpen(false);
             }}
           >
-            {lng === "en" ? "Light" : "Sáng"}
+            {lng === "en" ? "Vietnamese" : "Tiếng Việt"}
           </a>
         </div>
       </div>

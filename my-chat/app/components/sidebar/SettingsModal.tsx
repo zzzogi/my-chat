@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { User } from "@prisma/client";
 import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
@@ -15,6 +15,8 @@ import { toast } from "react-hot-toast";
 import { ThemeSelect } from "../ThemeSelect";
 import { useTranslation } from "@/app/i18n";
 import ConfirmDeleteModal from "./ConfimDelete";
+import { LanguageSelect } from "../LanguageSelect";
+import ConfirmChangeLanguageModal from "./ConfirmLanguage";
 
 interface SettingsModalProps {
   isOpen?: boolean;
@@ -30,12 +32,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
   lng,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(false);
   const [translation, setTranslation] = useState<any>();
   const [isOpenImage, setIsOpenImage] = useState(false);
   const [imgSource, setImgSource] = useState<string>("");
   const [isOpenConfirmDelete, setIsOpenConfirmDelete] = useState(false);
   const [deletingPhoto, setDeletingPhoto] = useState<string>("");
+  const [isOpenConfirmLanguage, setIsOpenConfirmLanguage] = useState(false);
+  const [changeLanguage, setChangeLanguage] = useState<string>("");
 
   useEffect(() => {
     useTranslation(lng, "setting-modal").then((t) => {
@@ -111,6 +116,14 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     setIsOpenConfirmDelete(!isOpenConfirmDelete);
   };
 
+  const handleOpenConfirmLanguage = () => {
+    setIsOpenConfirmLanguage(!isOpenConfirmLanguage);
+  };
+
+  const handleChangeLanguage = () => {
+    router.push(pathname.replace(`/${lng}`, `/${changeLanguage}`));
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <Modal isOpen={isOpenImage} onClose={handleCloseImage}>
@@ -126,6 +139,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         onSubmit={handleRemoveHighlightPhoto}
         isOpen={isOpenConfirmDelete}
         onClose={handleOpenConfirmDelete}
+        lng={lng}
+      />
+      <ConfirmChangeLanguageModal
+        onSubmit={handleChangeLanguage}
+        isOpen={isOpenConfirmLanguage}
+        onClose={handleOpenConfirmLanguage}
         lng={lng}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -161,6 +180,29 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 {translation?.t("choose-theme") || ""}
               </label>
               <ThemeSelect lng={lng} />
+            </div>
+
+            <div className="mt-10 flex flex-col gap-y-2">
+              <label
+                htmlFor="theme"
+                className="
+                    block 
+                    text-sm 
+                    font-medium 
+                    leading-6 
+                    text-gray-900
+                    dark:text-gray-100
+                  "
+              >
+                {translation?.t("choose-language") || ""}
+              </label>
+              <LanguageSelect
+                lng={lng}
+                onSubmit={(lng) => {
+                  setChangeLanguage(lng);
+                  setIsOpenConfirmLanguage(true);
+                }}
+              />
             </div>
 
             <div className="mt-10 flex flex-col gap-y-8">
