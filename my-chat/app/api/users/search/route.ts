@@ -1,10 +1,9 @@
-import { NextResponse } from "next/server";
-import { NextApiRequest } from "next";
+import { NextResponse, NextRequest } from "next/server";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
     const url = new URL(req.url || "", "http://localhost:3000");
@@ -14,7 +13,7 @@ export async function GET(req: NextApiRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!query) return [];
+    if (!query) return new NextResponse("No query", { status: 400 });
 
     const user = await prisma.user.findMany({
       where: {
@@ -29,7 +28,7 @@ export async function GET(req: NextApiRequest) {
     });
 
     if (!user) {
-      return [];
+      return new NextResponse("No users found", { status: 204 });
     }
 
     return NextResponse.json(user);

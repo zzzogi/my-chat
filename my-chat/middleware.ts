@@ -6,7 +6,6 @@ import { withAuth } from "next-auth/middleware";
 acceptLanguage.languages(languages);
 
 export const config = {
-  // matcher: "/:lng*",
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 
@@ -39,6 +38,6 @@ export function middleware(req: any) {
 
 export default withAuth({
   pages: {
-    signIn: "/:lng",
+    signIn: "/",
   },
 });

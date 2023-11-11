@@ -2,6 +2,8 @@
 const nextConfig = {
   experimental: {
     swcPlugins: [["next-superjson-plugin", {}]],
+    incrementalCacheHandlerPath: require.resolve("./cache-handler.js"),
+    isrMemoryCacheSize: 0,
   },
   images: {
     domains: [
