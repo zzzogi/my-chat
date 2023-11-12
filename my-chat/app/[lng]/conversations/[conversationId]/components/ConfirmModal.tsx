@@ -99,7 +99,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           </div>
         </div>
       </div>
-      <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+      <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse flex justify-center">
         <Button disabled={isLoading} danger onClick={onDelete}>
           {translation?.t("delete") || ""}
         </Button>
