@@ -118,7 +118,9 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
           "
           />
         ) : null}
-        <h1 className="text-5xl font-extrabold">{user?.name || ""}</h1>
+        <h1 className="text-5xl font-extrabold">
+          {user?.name || "Loading..."}
+        </h1>
         <p>{user?.quote || ""}</p>
         <p className="text-sm italic text-gray-400">
           {formatJoinDate(user?.createdAt)}
@@ -136,7 +138,7 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
         {user?.images.length ? (
           <p className="text-lg font-bold self-start ml-4">
             {lng === "en"
-              ? `${user?.name}&#x27;s highlight photos:`
+              ? `${user?.name}'s highlight photos:`
               : `Ảnh nổi bật của ${user?.name}:`}
           </p>
         ) : null}
@@ -145,7 +147,7 @@ const Profile: React.FC<ProfileProps> = ({ user, lng }) => {
           {user?.images.length ? (
             user?.images.map((image) => (
               <Image
-                onClick={() => handleClickImage(image || "")}
+                onClick={() => handleClickImage(image || "Loading...")}
                 key={image}
                 src={image}
                 alt={`Highlight image ${image}`}

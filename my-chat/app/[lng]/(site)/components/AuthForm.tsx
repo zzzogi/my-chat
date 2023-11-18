@@ -64,7 +64,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
 
     if (variant === "REGISTER") {
       if (passwordStrength < 3) {
-        toast.error(translation?.t("weak-password") || "");
+        toast.error(translation?.t("weak-password") || "Loading...");
         setIsLoading(false);
         return;
       }
@@ -78,15 +78,17 @@ const AuthForm = ({ lng }: { lng: string }) => {
         )
         .then((callback) => {
           if (callback?.error) {
-            toast.error(translation?.t("invalid-credentials") || "");
+            toast.error(translation?.t("invalid-credentials") || "Loading...");
           }
 
           if (callback?.ok) {
-            toast.success(translation?.t("account-created") || "");
+            toast.success(translation?.t("account-created") || "Loading...");
             router.push(`${lng}/conversations`);
           }
         })
-        .catch(() => toast.error(translation?.t("something-wrong")) || "")
+        .catch(
+          () => toast.error(translation?.t("something-wrong")) || "Loading..."
+        )
         .finally(() => setIsLoading(false));
     }
 
@@ -97,11 +99,11 @@ const AuthForm = ({ lng }: { lng: string }) => {
       })
         .then((callback) => {
           if (callback?.error) {
-            toast.error(translation?.t("invalid-credentials") || "");
+            toast.error(translation?.t("invalid-credentials") || "Loading...");
           }
 
           if (callback?.ok && !callback?.error) {
-            toast.success(translation?.t("logged-in") || "");
+            toast.success(translation?.t("logged-in") || "Loading...");
             router.push(`${lng}/conversations`);
           }
         })
@@ -115,7 +117,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) {
-          toast.error(translation?.t("invalid-credentials") || "");
+          toast.error(translation?.t("invalid-credentials") || "Loading...");
         }
 
         if (callback?.ok) {
@@ -146,7 +148,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
               errors={errors}
               required
               id="name"
-              label={translation?.t("login-name") || ""}
+              label={translation?.t("login-name") || "Loading..."}
               placeholder={lng === "en" ? "John Doe" : "Nguyễn Văn A"}
             />
           )}
@@ -156,7 +158,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
             errors={errors}
             required
             id="email"
-            label={translation?.t("email-address") || ""}
+            label={translation?.t("email-address") || "Loading..."}
             type="email"
             placeholder="example@gmail.com"
           />
@@ -168,7 +170,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
               required
               id={"password"}
               placeholder="••••••••"
-              label={translation?.t("password") || ""}
+              label={translation?.t("password") || "Loading..."}
               type={isPasswordVisible ? "text" : "password"}
               {...register(
                 variant === "REGISTER" ? "new-password" : "password",
@@ -304,8 +306,8 @@ const AuthForm = ({ lng }: { lng: string }) => {
           <div>
             <Button disabled={isLoading} fullWidth type="submit">
               {variant === "LOGIN"
-                ? translation?.t("sign-in") || ""
-                : translation?.t("register") || ""}
+                ? translation?.t("sign-in") || "Loading..."
+                : translation?.t("register") || "Loading..."}
             </Button>
           </div>
         </form>
@@ -324,7 +326,7 @@ const AuthForm = ({ lng }: { lng: string }) => {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="bg-white dark:bg-zinc-700 px-2 text-gray-500 dark:text-gray-400">
-                {translation?.t("continue") || ""}
+                {translation?.t("continue") || "Loading..."}
               </span>
             </div>
           </div>
@@ -354,13 +356,13 @@ const AuthForm = ({ lng }: { lng: string }) => {
         >
           <div>
             {variant === "LOGIN"
-              ? translation?.t("new-account") || ""
-              : translation?.t("already-have-account") || ""}
+              ? translation?.t("new-account") || "Loading..."
+              : translation?.t("already-have-account") || "Loading..."}
           </div>
           <div onClick={toggleVariant} className="underline cursor-pointer">
             {variant === "LOGIN"
-              ? translation?.t("create-account") || ""
-              : translation?.t("login") || ""}
+              ? translation?.t("create-account") || "Loading..."
+              : translation?.t("login") || "Loading..."}
           </div>
         </div>
       </div>

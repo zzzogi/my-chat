@@ -21,7 +21,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast, lng }) => {
   const session = useSession();
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [transition, setTransition] = useState<any>();
-  
+
   useEffect(() => {
     useTranslation(lng, "convo-body").then((t) => {
       setTransition(t);
@@ -93,7 +93,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast, lng }) => {
             dark:text-gray-400
             "
           >
-            {`${transition?.t("seen-by") || ""} ${seenList}`}
+            {`${transition?.t("seen-by") || "Loading..."} ${seenList}`}
           </div>
         )}
       </div>

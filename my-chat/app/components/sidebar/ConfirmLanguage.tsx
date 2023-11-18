@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { FiAlertTriangle } from "react-icons/fi";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import Modal from "@/app/components/modals/Modal";
 import Button from "@/app/components/Button";
-import useConversation from "@/app/hooks/useConversation";
-import { toast } from "react-hot-toast";
+import Modal from "@/app/components/modals/Modal";
 import { useTranslation } from "@/app/i18n";
+import { Dialog } from "@headlessui/react";
+import React, { useEffect, useState } from "react";
+import { FiAlertTriangle } from "react-icons/fi";
 
 interface ConfirmChangeLanguageProps {
   isOpen?: boolean;
@@ -72,21 +68,21 @@ const ConfirmChangeLanguageModal: React.FC<ConfirmChangeLanguageProps> = ({
             as="h3"
             className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-100"
           >
-            {translation?.t("change-language") || ""}
+            {translation?.t("change-language") || "Loading..."}
           </Dialog.Title>
           <div className="mt-2">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {translation?.t("are-you-sure-language") || ""}
+              {translation?.t("are-you-sure-language") || "Loading..."}
             </p>
           </div>
         </div>
       </div>
       <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse flex justify-center">
         <Button disabled={isLoading} danger onClick={onSubmit}>
-          {translation?.t("yes") || ""}
+          {translation?.t("yes") || "Loading..."}
         </Button>
         <Button disabled={isLoading} secondary onClick={onClose}>
-          {translation?.t("cancel") || ""}
+          {translation?.t("cancel") || "Loading..."}
         </Button>
       </div>
     </Modal>

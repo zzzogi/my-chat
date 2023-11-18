@@ -115,7 +115,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                               onClick={onClose}
                             >
                               <span className="sr-only">
-                                {translation?.t("close-panel") || ""}
+                                {translation?.t("close-panel") || "Loading..."}
                               </span>
                               <IoClose size={24} aria-hidden="true" />
                             </button>
@@ -145,7 +145,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                   <BiSolidUserCircle size={20} />
                                 </div>
                                 <div className="text-sm font-light text-neutral-600 dark:text-neutral-300">
-                                  {translation?.t("profile") || ""}
+                                  {translation?.t("profile") || "Loading..."}
                                 </div>
                               </div>
                             </div>
@@ -158,7 +158,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                   <IoTrash size={20} />
                                 </div>
                                 <div className="text-sm font-light text-neutral-600 dark:text-neutral-300">
-                                  {translation?.t("delete") || ""}
+                                  {translation?.t("delete") || "Loading..."}
                                 </div>
                               </div>
                             </div>
@@ -206,7 +206,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                   dark:text-gray-400
                                 "
                                   >
-                                    {translation?.t("email") || ""}
+                                    {translation?.t("email") || "Loading..."}
                                   </dt>
                                   <dd
                                     className="
@@ -235,7 +235,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     dark:text-gray-400
                                   "
                                     >
-                                      {translation?.t("joined") || ""}
+                                      {translation?.t("joined") || "Loading..."}
                                     </dt>
                                     <dd
                                       className="

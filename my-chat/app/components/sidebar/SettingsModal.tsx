@@ -93,7 +93,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         router.refresh();
         onClose();
       })
-      .catch(() => toast.error(translation?.t("something-wrong") || ""))
+      .catch(() => toast.error(translation?.t("something-wrong") || "Loading..."))
       .finally(() => setIsLoading(false));
   };
 
@@ -161,10 +161,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 dark:text-gray-100
               "
             >
-              {translation?.t("profile") || ""}
+              {translation?.t("profile") || "Loading..."}
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
-              {translation?.t("edit-your-info") || ""}
+              {translation?.t("edit-your-info") || "Loading..."}
             </p>
 
             <div className="mt-10 flex flex-col gap-y-2">
@@ -179,7 +179,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
               >
-                {translation?.t("choose-theme") || ""}
+                {translation?.t("choose-theme") || "Loading..."}
               </label>
               <ThemeSelect lng={lng} />
             </div>
@@ -196,7 +196,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
               >
-                {translation?.t("choose-language") || ""}
+                {translation?.t("choose-language") || "Loading..."}
               </label>
               <LanguageSelect
                 lng={lng}
@@ -210,7 +210,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             <div className="mt-10 flex flex-col gap-y-8">
               <Input
                 disabled={isLoading}
-                label={translation?.t("name") || ""}
+                label={translation?.t("name") || "Loading..."}
                 id="name"
                 errors={errors}
                 required
@@ -218,7 +218,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
               />
               <Input
                 disabled={isLoading}
-                label={translation?.t("quote") || ""}
+                label={translation?.t("quote") || "Loading..."}
                 id="quote"
                 errors={errors}
                 register={register}
@@ -235,7 +235,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
                 >
-                  {translation?.t("photo") || ""}
+                  {translation?.t("photo") || "Loading..."}
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
                   <Image
@@ -258,7 +258,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     }}
                   />
                   <CldUploadWidget
-                    uploadPreset="zsnsmvgz"
+                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
                     onUpload={handleUploadProfileImage}
                     options={{
                       cropping: true,
@@ -279,7 +279,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                           type="button"
                           onClick={handleOnClick}
                         >
-                          {translation?.t("change-photo") || ""}
+                          {translation?.t("change-photo") || "Loading..."}
                         </Button>
                       );
                     }}
@@ -298,7 +298,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     dark:text-gray-100
                   "
                 >
-                  {translation?.t("highlight-photos") || ""}
+                  {translation?.t("highlight-photos") || "Loading..."}
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
                   {highlightPhotos?.map((photo: string, index: number) => (
@@ -341,7 +341,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
                   ))}
                   <CldUploadWidget
-                    uploadPreset="zsnsmvgz"
+                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
                     onUpload={handleUploadHighlightPhotos}
                     options={{
                       multiple: true,
@@ -397,10 +397,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
           "
         >
           <Button disabled={isLoading} secondary onClick={onClose}>
-            {translation?.t("cancel") || ""}
+            {translation?.t("cancel") || "Loading..."}
           </Button>
           <Button disabled={isLoading} type="submit">
-            {translation?.t("save") || ""}
+            {translation?.t("save") || "Loading..."}
           </Button>
         </div>
       </form>

@@ -35,8 +35,8 @@ const EmptyState = ({ type = "", lng }: { type?: string; lng: string }) => {
         "
         >
           {type === "users"
-            ? translation?.t("search-user") || ""
-            : translation?.t("select-conversation") || ""}
+            ? translation?.t("search-user") || "Loading..."
+            : translation?.t("select-conversation") || "Loading..."}
         </h3>
       </div>
     </div>

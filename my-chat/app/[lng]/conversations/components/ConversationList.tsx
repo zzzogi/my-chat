@@ -131,7 +131,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
               dark:text-gray-100
             "
             >
-              {translation?.t("message") || ""}
+              {translation?.t("message") || "Loading..."}
             </div>
             {/* <div
               onClick={() => setIsModalOpen(true)}
