@@ -54,6 +54,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/zxcvbn": "^4.4.2",
+    "encoding": "^0.1.13",
     "prisma": "^5.1.1"
   }
 }
