@@ -21,7 +21,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data, lng }) => {
     axios
       .get(`/api/users/profile/${data.id}`)
       .then((data) => {
-        router.push(`users/profile/${data.data.id}`);
+        router.push(`/${lng}/users/profile/${data.data.id}`);
       })
       .finally(() => setIsLoading(false));
   }, [data, router]);

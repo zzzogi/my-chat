@@ -1,13 +1,14 @@
 "use client";
 
-import { User } from "@prisma/client";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 
-import UserBox from "./UserBox";
-import SearchInput from "./SearchInput";
 import useDisplayUser from "@/app/hooks/useDisplayUser";
+import SearchInput from "./SearchInput";
 import Spinning from "./Spinning";
+import UserBox from "./UserBox";
+import { useTranslation } from "@/app/i18n";
 
 interface UserListProps {
   lng: string;
@@ -16,6 +17,14 @@ interface UserListProps {
 const UserList: React.FC<UserListProps> = ({ lng }) => {
   const { members, add, gettingUser, gettingUserDone, isLoading } =
     useDisplayUser();
+  const [translation, setTranslation] = useState<any>();
+
+  useEffect(() => {
+    useTranslation(lng, "user-sidebar").then((t) => {
+      setTranslation(t);
+    });
+  }, [lng]);
+
   const {
     register,
     handleSubmit,
@@ -71,12 +80,12 @@ const UserList: React.FC<UserListProps> = ({ lng }) => {
               dark:text-neutral-100
             "
           >
-            People
+            {translation?.t("people") || "Loading..."}
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-2">
           <SearchInput
-            placeholder="Search"
+            placeholder={translation?.t("search") || "Loading..."}
             id="name"
             errors={errors}
             required={false}
@@ -99,7 +108,7 @@ const UserList: React.FC<UserListProps> = ({ lng }) => {
               dark:text-gray-400
             "
           >
-            Try searching for someone
+            {translation?.t("try-to-search") || "Loading..."}
           </div>
         )}
       </div>
