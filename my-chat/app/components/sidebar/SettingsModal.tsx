@@ -93,7 +93,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         router.refresh();
         onClose();
       })
-      .catch(() => toast.error(translation?.t("something-wrong") || "Loading..."))
+      .catch(() =>
+        toast.error(translation?.t("something-wrong") || "Loading...")
+      )
       .finally(() => setIsLoading(false));
   };
 
@@ -258,13 +260,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     }}
                   />
                   <CldUploadWidget
-                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+                    }
                     onUpload={handleUploadProfileImage}
                     options={{
                       cropping: true,
                       sources: ["local"],
                       maxFiles: 1,
-                      maxFileSize: 2000000,
+                      maxFileSize: 25000000,
                       clientAllowedFormats: ["images", "png", "jpeg", "jpg"],
                     }}
                   >
@@ -341,13 +345,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     </div>
                   ))}
                   <CldUploadWidget
-                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+                    uploadPreset={
+                      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+                    }
                     onUpload={handleUploadHighlightPhotos}
                     options={{
                       multiple: true,
                       sources: ["local"],
                       maxFiles: 6,
-                      maxFileSize: 2000000,
+                      maxFileSize: 25000000,
                       clientAllowedFormats: ["images", "png", "jpeg", "jpg"],
                     }}
                   >

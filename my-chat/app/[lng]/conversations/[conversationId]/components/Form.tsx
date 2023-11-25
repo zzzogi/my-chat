@@ -4,8 +4,9 @@ import { HiPaperAirplane, HiPhoto } from "react-icons/hi2";
 import MessageInput from "./MessageInput";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
-import { CldUploadButton } from "next-cloudinary";
+import { CldUploadWidget } from "next-cloudinary";
 import useConversation from "@/app/hooks/useConversation";
+import Button from "@/app/components/Button";
 
 const Form = () => {
   const { conversationId } = useConversation();
@@ -52,13 +53,40 @@ const Form = () => {
         w-full
       "
     >
-      <CldUploadButton
-        options={{ maxFiles: 1 }}
-        onUpload={handleUpload}
+      <CldUploadWidget
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+        onUpload={handleUpload}
+        options={{
+          cropping: true,
+          sources: ["local"],
+          maxFiles: 10,
+          maxFileSize: 25000000,
+          clientAllowedFormats: [
+            "images",
+            "png",
+            "jpeg",
+            "jpg",
+            "video",
+            "gif",
+          ],
+        }}
       >
-        <HiPhoto size={30} className="text-sky-500 dark:text-sky-400" />
-      </CldUploadButton>
+        {({ open }) => {
+          function handleOnClick() {
+            open();
+          }
+          return (
+            <Button
+              // disabled={isLoading}
+              secondary
+              type="button"
+              onClick={handleOnClick}
+            >
+              <HiPhoto size={30} className="text-sky-500 dark:text-sky-400" />
+            </Button>
+          );
+        }}
+      </CldUploadWidget>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex items-center gap-2 lg:gap-4 w-full"

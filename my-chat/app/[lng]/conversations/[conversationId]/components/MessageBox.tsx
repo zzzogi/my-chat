@@ -10,6 +10,7 @@ import { FullMessageType } from "@/app/types";
 import Avatar from "@/app/components/Avatar";
 import ImageModal from "./ImageModal";
 import { useTranslation } from "@/app/i18n";
+import { extractMediaType } from "@/app/utils/helpers";
 
 interface MessageBoxProps {
   data: FullMessageType;
@@ -65,7 +66,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast, lng }) => {
             isOpen={imageModalOpen}
             onClose={() => setImageModalOpen(false)}
           />
-          {data.image ? (
+          {data.image && extractMediaType(data.image) === "video" ? (
+            <video src={data.image} controls className="rounded-md" />
+          ) : data.image && extractMediaType(data.image) === "image" ? (
             <Image
               alt="Image"
               height="288"
