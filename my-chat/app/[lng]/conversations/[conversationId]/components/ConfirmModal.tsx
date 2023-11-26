@@ -40,7 +40,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       .delete(`/api/conversations/${conversationId}`)
       .then(() => {
         onClose();
-        router.push("/conversations");
+        router.push(`/${lng}/conversations`);
         router.refresh();
       })
       .catch(() =>
