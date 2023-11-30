@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ conversation, lng }) => {
   const otherUser = useOtherUser(conversation);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { members } = useActiveList();
-  const isActive = members.indexOf(otherUser?.email!) !== -1;
+  const isActive = members.indexOf(otherUser?.id!) !== -1;
 
   const statusText = useMemo(() => {
     if (conversation.isGroup) {
@@ -42,15 +42,6 @@ const Header: React.FC<HeaderProps> = ({ conversation, lng }) => {
       ? "Offline"
       : "Ngoại tuyến";
   }, [conversation, isActive]);
-
-  function mypopup() {
-    const mywindow = window.open(
-      `http://localhost:3000/${lng}/room/1`,
-      "mywindow",
-      "location=1,status=1,scrollbars=1,  width=1200,height=600"
-    );
-    mywindow?.moveTo(120, 120);
-  }
 
   return (
     <>
@@ -107,23 +98,10 @@ const Header: React.FC<HeaderProps> = ({ conversation, lng }) => {
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <IoCall
-            size={24}
-            className="
-              text-sky-500
-              cursor-pointer
-              hover:text-sky-600
-              dark:text-sky-400
-              dark:hover:text-sky-500
-              transition
-            "
-            onClick={() => mypopup()}
-          />
-          <HiEllipsisHorizontal
-            size={32}
-            onClick={() => setDrawerOpen(true)}
-            className="
+        <HiEllipsisHorizontal
+          size={32}
+          onClick={() => setDrawerOpen(true)}
+          className="
           text-sky-500
           cursor-pointer
           hover:text-sky-600
@@ -131,8 +109,7 @@ const Header: React.FC<HeaderProps> = ({ conversation, lng }) => {
           dark:hover:text-sky-500
           transition
         "
-          />
-        </div>
+        />
       </div>
     </>
   );

@@ -1,14 +1,16 @@
+import { useSession } from "next-auth/react";
+import { Members, PresenceChannel } from "pusher-js";
 import { useEffect, useState } from "react";
 import { pusherClient } from "../libs/pusher";
-import { Channel, Members } from "pusher-js";
 import useActiveList from "./useActiveList";
-import { useSession } from "next-auth/react";
 
 const useActiveChannel = () => {
   const session = useSession();
 
   const { set, add, remove } = useActiveList();
-  const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
+  const [activeChannel, setActiveChannel] = useState<PresenceChannel | null>(
+    null
+  );
 
   useEffect(() => {
     let channel = activeChannel;
@@ -18,7 +20,7 @@ const useActiveChannel = () => {
     }
 
     if (!channel) {
-      channel = pusherClient.subscribe("presence-messenger");
+      channel = pusherClient.subscribe("presence-messenger") as PresenceChannel;
       setActiveChannel(channel);
     }
 

@@ -17,7 +17,12 @@ export default async function handler(
   const socketId = request.body.socket_id;
   const channel = request.body.channel_name;
   const data = {
-    user_id: session.user.email,
+    user_id: session.user.id,
+    user_info: {
+      email: session.user.email,
+      name: session.user.name,
+      image: session.user.image,
+    },
   };
 
   const authResponse = pusherServer.authorizeChannel(socketId, channel, data);
