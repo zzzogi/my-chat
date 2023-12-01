@@ -6,6 +6,7 @@ import AuthContext from "../context/AuthContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import { dir } from "i18next";
 import { languages } from "../i18n/settings";
+import { Analytics } from "@vercel/analytics/react";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
@@ -54,6 +55,7 @@ export default function RootLayout({
           <AuthContext>
             <ToasterContext />
             {children}
+            <Analytics />
           </AuthContext>
         </ThemeProvider>
       </body>
